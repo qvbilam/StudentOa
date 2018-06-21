@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="__PUBLIC__/Admin/css/base.css" />
+<link rel="stylesheet" href="__PUBLIC__/Admin/css/info-mgt.css" />
+<link rel="stylesheet" href="__PUBLIC__/Admin/css/WdatePicker.css" />
+<title>移动办公自动化系统</title>
+<style type='text/css'>
+	table tr .num{ width:63px; text-align: center;}
+	table tr .name{ width:63px; padding-left:17px;}
+	table tr .nickname{ width:63px; padding-left:13px;}
+	table tr .dept{ width:63px; padding-left:13px;}
+	table tr .role{ width:63px; padding-left:13px;}
+	table tr .sex{ width:63px; padding-left:13px;}
+	table tr .birthday{ width:100px; padding-left:13px;}
+	table tr .tel{ width:63px; padding-left:13px;}
+	table tr .email{ width:63px; padding-left:13px;}
+	table tr .ctime{ width:100px; padding-left:13px;}
+	table tr .operate{ width:63px; padding-left:15px;}
+	table tr .operate a{ color:#2c7bbc;}
+	table tr .operate a:hover{ text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="title"><h2>用户信息管理</h2></div>
+<div class="table-operate ue-clear">
+    <a href="{:U('/user/add')}" class="add">添加</a>
+    <a href="{:U('/user/dels')}" class="del" style="padding-left: 10px">批量删除</a>
+    <a href="{:U('/User/editUser', 'id='.$vo[user_id])}" class="edit">编辑</a>
+    <a href="javascript:;" class="count">统计</a>
+    <a href="javascript:;" class="check">审核</a>
+</div>
+<div class="table-box">
+	<table>
+    	<thead>
+        	<tr>
+                    <th class="num"><input type='checkbox' id="qfx"/></th>
+                    <th class="name">用户名</th>
+                    <th class="nickname">用户昵称</th>
+                    <th class="dept">类别</th>
+                    <th class="role">角色</th>
+                    <th class="sex">性别</th>
+                    <th class="birthday">出生日期</th>
+                    <th class="tel">电话</th>
+                    <th class="email">邮箱</th>
+                    <th class="ctime">修改时间</th>
+                    <th class="operate">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<foreach name="user_list" item="vo">
+            <tr>
+                <td class="num"><input type='checkbox' value='{$vo.user_id}'/></td>
+                <td class="name">{$vo.name|str_repeat='&emsp;&emsp;',###}{$vo.user_name}</td>
+                <td class="nickname">{$vo.user_nickname}</td>
+                <td class="dept">{$vo.user_deptid}</td>
+                <td class="role">{$vo.user_roleid}</td>
+                <td class="sex">{$vo.user_sex}</td>
+                <td class="birthday">{$vo.user_birthday}</td>
+                <td class="tel">{$vo.user_tel}</td>
+                <td class="email">{$vo.user_email}</td>
+                <td class="ctime">{$vo.user_ctime}</td>
+                <td class="operate">
+                    <a href="{:U('/User/editUser', 'id='.$vo[user_id])}">修改</a>|
+                    <a href="{:U('/User/ZcxdelUser','id='.$vo[user_id])}">删除</a>
+                </td>
+            </tr>            
+        </foreach>
+        </tbody>
+        <tr>
+            <td textalign="center" cl nowrap="true" colspan="9" height="20">
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="pagination ue-clear">{$show}</div>
+</body>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.pagination.js"></script>
+<script type="text/javascript">
+$('.del').click(function(){
+        var check_list=$(':checkbox:checked');
+        var dept_ids='';
+        check_list.each(function(){
+            dept_ids += $(this).val() + ',';
+        })
+        dept_ids=dept_ids.substr(0,dept_ids.length-1);
+        location.href="__CONTROLLER__/dels/ids/"+dept_ids;
+    })
+$('#qfx').click(function(){
+    if($(this).is(":checked"))
+    {
+        $("tbody input").prop("checked",true);
+    }
+    else
+    {
+        $("tbody input").prop("checked",false);
+    }
+})
+$(".select-title").on("click",function(){
+	$(".select-list").hide();
+	$(this).siblings($(".select-list")).show();
+	return false;
+})
+$(".select-list").on("click","li",function(){
+	var txt = $(this).text();
+	$(this).parent($(".select-list")).siblings($(".select-title")).find("span").text(txt);
+})
+$('.pagination').pagination({$count},{
+	callback: function(page){
+		alert(page+1);	
+	},
+	display_msg: false,
+	setPageNo: false,
+        items_per_page:{$pagesize}
+});
+$("tbody").find("tr:odd").css("backgroundColor","#eff6fa");
+
+showRemind('input[type=text], textarea','placeholder');
+
+</script>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<foreach name="arr" key="k" item="vo">
+ {$k}->{$vo}<br>
+</foreach>
+
+<foreach name="info" key="key" item="v">
+  {$key} -> {$v}<br>
+</foreach>
+
+<foreach name="list" key='key' item="value">
+	{$key}=>
+	<foreach name="value" key='k' item="v">
+		{$k}->{$v} &nbsp;&nbsp;&nbsp;
+	</foreach>
+	<br>
+</foreach>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<volist name="arr" id="v" offset="2" length="3">
+{$v}<br>
+</volist>
+
+
+
+
+
+<volist name="arr" id="v" key="key">
+{$key} => {$v}<br>
+</volist>
+
+<volist name="info" id="v" key="k">
+{$k} => {$v}<br>
+</volist>
+
+<volist name="list" id="vo" key="kkk">
+	{$kkk}=>
+	<volist name="vo" id="d">
+		{$d} &nbsp;&nbsp;
+	</volist>
+	<br>
+</volist>
+</body>
+</html>

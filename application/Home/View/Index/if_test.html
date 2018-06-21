@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<if condition="$str gt 10 ">
+Hello World
+<else />
+Hello TP
+</if>
+<hr />
+
+<if condition="$hour gt 6 and $hour elt 12 ">
+	上午好
+<elseif condition="$hour gt 12 and $hour elt 18" />
+	下午好
+<elseif condition="$hour gt 18 and $hour elt 24" />
+	晚上好
+<else />
+	凌晨好
+</if>
+</body>
+</html>

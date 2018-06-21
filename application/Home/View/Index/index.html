@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+{$str|strtoupper} {//strtoupper($str)}<br>
+{$str|substr=###, 1, 3} {//substr($str,1,3)}<br>
+{$str|strtoupper|substr=###,1,3}<br>
+{//strtoupper(substr($str,1,3))、substr(strtoupper($str),1,3)}
+{$t|date='Y-m-d',###}
+</body>
+</html>

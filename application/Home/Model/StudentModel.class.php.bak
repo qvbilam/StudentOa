@@ -1,0 +1,83 @@
+<?php
+//1. 声明命名空间
+namespace Home\Model;
+//2. 引入模型基类
+use Think\Model;
+//3. 编写模型类，继承模型基类
+class StudentModel extends Model{
+    //定义实际表名
+    //protected $tableName = 'stu';
+    //定义完整表名
+    protected $trueTableName = 'think_stu';
+    
+    //1. 定义主键
+    protected $pk = 'sno';
+    //2. 定义字段：将数据表中所有的字段名都写在$fields中
+    protected $fields = array(
+        'sno', 'sname', 'spasswd', 'ssex', 'sage', 'sdept', 'saddtime'
+    );
+    //3. 定义字段映射
+    protected $_map = array(
+        //左侧下标，是表单name值
+        //右侧值，是数据表字段名
+        'no' => 'sno',
+        'name' => 'sname',
+        'passwd' => 'spasswd',
+        'sex'  => 'ssex',
+        'age'  => 'sage',
+        'dept' => 'sdept',
+    );
+    protected $_validate = array(
+        //sname: 要验证的字段，必须使用数据表字段名
+        //require: 验证的具体方法， 不能为空
+        //用户名不能为空: 当验证失败后的返回信息
+        //1 : 该字段必须验证
+        //regex: 指定验证方式为正则表达式
+        //3: 添加和修改时，都要验证该字段
+        array('sname', 'require', '用户名不能为空', 1, 'regex', 3),
+        //username: 使用的正则表达式名称
+        array('sname', 'username', '用户名必须是6-12位字母数字下划线', 1, 'regex', 3),
+        //callback: 使用当前模型类中的方法来进行验证
+        //checkSex: 调用的方法名称
+        array('ssex', 'checkSex', '性别不正确', 2, 'callback', 3),
+        //function: 使用函数方式来进行验证，该函数我们都写在function.php文件中
+        array('sage', 'checkAge', '年龄不正确', 2, 'function', 3),
+        //re-passwd: 要验证的表单字段
+        //spasswd: 使用spasswd对应的值来进行验证
+        array('re-passwd', 'spasswd', '两次密码不相同', 1, 'confirm', 3)
+    );
+    
+    function checkSex($sex){
+        $arr = array('男', '女');
+        if(in_array($sex, $arr)){
+            return true;
+        }
+        return false;
+    }
+    
+    protected $_auto = array(
+        array('saddtime', 'setDateTime', 1, 'function'),
+    );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
